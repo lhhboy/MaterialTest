@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_margin="5dp"
+    app:cardCornerRadius="4dp"
+    android:layout_height="wrap_content"
+    android:layout_width="match_parent">
+<LinearLayout
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <!--scaleType这个属性可以指定图片缩放模式，由于每张图片宽高比例不一样
+    为了让所有图片杜能填充满整个ImageView，这里使用centerCrop模式
+    它可以让图片保持原有比例填充满整个ImageView,并将超出部分裁剪掉-->
+<ImageView
+    android:id="@+id/fruit_image"
+    android:layout_width="match_parent"
+    android:layout_height="100dp"
+    android:scaleType="fitXY"/>
+    <TextView
+        android:id="@+id/fruit_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_margin="5dp"
+        android:textSize="16sp"/>
+</LinearLayout>
+</androidx.cardview.widget.CardView>

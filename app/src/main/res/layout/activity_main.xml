@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.drawerlayout.widget.DrawerLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/drawer_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+<!--两个布局，第一个是主屏幕，第二个是滑动出来的屏幕-->
+    <!--这是第一个：CoordinatorLayout是Design库的，它代替FrameLayout可以实现FloatingActionButton不被遮挡-->
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <!--AppBarLayout和RecycleView的 app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        防止遮挡Toolbar-->
+        <com.google.android.material.appbar.AppBarLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+<!--为了能够兼容Andrid5.0之前的老系统,我们不能使用android：attribute这样的写法，
+而是使用app:attribute(属性)。app:popupTheme属性单独将弹出的菜单项指定成了淡色主题-->
+            <!-- app:layout_scrollFlags="scroll|enterAlways|snap"实现向上滚动Toolbar消失，向下滚动又重新出现-->
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+            app:layout_scrollFlags="scroll|enterAlways|snap"/>
+        </com.google.android.material.appbar.AppBarLayout>
+        <!--让RecycleView拥有下拉刷新的功能，注意，因为RecycleView变成了SwiipeRefreshLayout的子控件，所以
+        app:app:layout_behavior声明的布局行为现在也要移到到SwipeRefreshLayout中才行-->
+        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+            android:id="@+id/swipe_refresh"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+        <!---->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycle_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
+        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+        <!--elevation是投影，值越大范围越大，但投影越淡-->
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|end"
+            android:layout_margin="16dp"
+            android:elevation="8dp"
+            android:src="@drawable/correct"
+            app:backgroundTint="#03A9F4" />
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+<!--这是第二个：layout_gravity必须指定，start属性根据系统语言判断是左还是右划出，英语中文语言是左
+用NavigationView来实现头部和菜单项的填充-->
+  <com.google.android.material.navigation.NavigationView
+      android:id="@+id/nav_view"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:layout_gravity="start"
+      app:menu="@menu/nav_menu"
+      app:headerLayout="@layout/nav_header"/>
+
+</androidx.drawerlayout.widget.DrawerLayout>
